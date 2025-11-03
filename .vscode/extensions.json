@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "anthropic.claude-code",
+    "openai.chatgpt",
+    "github.copilot",
+    "github.vscode-github-actions",
+    "google.gemini-cli-vscode-ide-companion",
+    "stoplight.spectral",
+    "unifiedjs.vscode-remark",
+    "ms-playwright.playwright",
+    "vitest.explorer"
+  ]
+}
