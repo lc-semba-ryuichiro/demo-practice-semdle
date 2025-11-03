@@ -7,7 +7,7 @@
     "@textlint/markdown": true
   },
   "rules": {
-    "@textlint-ja/preset-ai-writing": true,
+    "@textlint-ja/textlint-rule-preset-ai-writing": true,
     "preset-ja-technical-writing": true
   }
 }
