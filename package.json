@@ -32,8 +32,6 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitest/coverage-v8": "catalog:",
-    "commitizen": "catalog:",
-    "cz-conventional-changelog": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
     "eslint-plugin-storybook": "catalog:",
