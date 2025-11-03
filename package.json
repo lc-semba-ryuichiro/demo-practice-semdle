@@ -25,6 +25,7 @@
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
+    "lefthook": "catalog:",
     "msw": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-tailwindcss": "catalog:",
