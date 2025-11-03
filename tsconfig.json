@@ -54,6 +54,8 @@
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "stories",
+    ".storybook"
   ]
 }

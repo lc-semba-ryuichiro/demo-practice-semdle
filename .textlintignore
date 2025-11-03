@@ -46,3 +46,7 @@ gha-creds-*.json
 AGENTS.md
 CLAUDE.md
 GEMINI.md
+.z/*
+
+*storybook.log
+storybook-static

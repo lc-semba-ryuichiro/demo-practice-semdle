@@ -2,12 +2,16 @@
   "name": "demo-practice-semble",
   "version": "0.1.0",
   "scripts": {
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_a853addd3a751d3",
     "dev": "next dev",
     "build": "next build",
+    "format": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md}\"",
+    "lint": "eslint . --max-warnings=0",
     "start": "next start",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit",
-    "textlint": "textlint \"docs/**/*.md\" \"*.md\""
+    "storybook": "storybook dev -p 6006",
+    "textlint": "textlint \"docs/**/*.md\" \"*.md\"",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "catalog:",
@@ -15,7 +19,10 @@
     "@commitlint/config-conventional": "catalog:",
     "@cucumber/cucumber": "catalog:",
     "@cucumber/messages": "catalog:",
+    "@eslint/css": "catalog:",
+    "@eslint/js": "catalog:",
     "@playwright/test": "catalog:",
+    "@poupe/eslint-plugin-tailwindcss": "catalog:",
     "@secretlint/secretlint-rule-preset-recommend": "catalog:",
     "@storybook/addon-a11y": "catalog:",
     "@storybook/addon-docs": "catalog:",
@@ -32,8 +39,11 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitest/coverage-v8": "catalog:",
+    "chromatic": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
+    "eslint-config-prettier": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-storybook": "catalog:",
     "lefthook": "catalog:",
     "msw": "catalog:",
@@ -57,6 +67,7 @@
     "tw-animate-css": "catalog:",
     "typedoc": "catalog:",
     "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
     "vitest": "catalog:"
   },
   "dependencies": {
