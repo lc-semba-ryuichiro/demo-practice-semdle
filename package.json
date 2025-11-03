@@ -38,22 +38,28 @@
     "remark-toc": "catalog:",
     "secretlint": "catalog:",
     "storybook": "catalog:",
-    "tailwindcss": "catalog:",
     "textlint": "catalog:",
     "textlint-filter-rule-allowlist": "catalog:",
     "textlint-filter-rule-comments": "catalog:",
     "textlint-plugin-html": "catalog:",
     "textlint-rule-preset-ja-technical-writing": "catalog:",
+    "tw-animate-css": "catalog:",
     "typedoc": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
   "dependencies": {
     "@astrojs/starlight": "catalog:",
+    "@supabase/supabase-js": "catalog:",
     "astro": "catalog:",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tailwindcss": "catalog:",
     "zustand": "catalog:"
   }
 }
