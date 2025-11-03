@@ -5,9 +5,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "textlint": "textlint \"docs/**/*.md\" \"*.md\""
   },
   "devDependencies": {
+    "@textlint-ja/textlint-rule-preset-ai-writing": "catalog:",
+    "@textlint/textlint-plugin-markdown": "catalog:",
     "@chromatic-com/storybook": "catalog:",
     "@commitlint/cli": "catalog:",
     "@commitlint/config-conventional": "catalog:",
