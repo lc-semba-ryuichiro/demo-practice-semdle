@@ -1,0 +1,13 @@
+{
+  "filters": {
+    "allowlist": {},
+    "comments": true
+  },
+  "plugins": {
+    "@textlint/markdown": true
+  },
+  "rules": {
+    "@textlint-ja/preset-ai-writing": true,
+    "preset-ja-technical-writing": true
+  }
+}
