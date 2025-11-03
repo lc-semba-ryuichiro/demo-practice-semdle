@@ -51,6 +51,8 @@
   "dependencies": {
     "@astrojs/starlight": "catalog:",
     "@supabase/supabase-js": "catalog:",
+    "@vercel/analytics": "catalog:",
+    "@vercel/speed-insights": "catalog:",
     "astro": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
