@@ -6,7 +6,7 @@
     "chromatic": "npx chromatic --project-token=chpt_a853addd3a751d3",
     "dev": "next dev",
     "build": "next build",
-    "format": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md}\"",
+    "format": "prettier --check \"**/*.{ts,tsx,js,jsx,css,md}\" --experimental-cli",
     "lint": "eslint . --max-warnings=0",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
