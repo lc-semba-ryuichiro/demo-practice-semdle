@@ -1,47 +1,28 @@
-# EXAMPLE USAGE:
-#
-#   Refer for explanation to following link:
-#   https://lefthook.dev/configuration/
-#
-# pre-push:
-#   jobs:
-#     - name: packages audit
-#       tags:
-#         - frontend
-#         - security
-#       run: yarn audit
-#
-#     - name: gems audit
-#       tags:
-#         - backend
-#         - security
-#       run: bundle audit
-#
 pre-commit:
   parallel: true
   jobs:
-    - run: pnpm typecheck
-      glob: "*.{js,ts,jsx,tsx}"
+    - name: prettier check
+      run: pnpm format
+      glob: "*.{js,ts,jsx,tsx,css,md}"
+    - name: typecheck
+      run: pnpm tsc --noEmit
+      glob: "*.{ts,tsx}"
+    - name: eslint
+      run: pnpm lint
+      glob: "*.{js,ts,jsx,tsx,css,md}"
+
+pre-push:
+  parallel: true
+  jobs:
+    - name: typecheck
+      run: pnpm tsc --noEmit
+      glob: "*.{ts,tsx}"
+    - name: build
+      run: pnpm build
+    - name: audit
+      run: pnpm audit
 
 commit-msg:
   commands:
     "lint commit message":
       run: pnpm commitlint --edit {1}
-
-#     - name: rubocop
-#       glob: "*.rb"
-#       exclude:
-#         - config/application.rb
-#         - config/routes.rb
-#       run: bundle exec rubocop --force-exclusion {all_files}
-#
-#     - name: govet
-#       files: git ls-files -m
-#       glob: "*.go"
-#       run: go vet {files}
-#
-#     - script: "hello.js"
-#       runner: node
-#
-#     - script: "hello.go"
-#       runner: go run
