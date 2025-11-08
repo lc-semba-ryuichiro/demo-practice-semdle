@@ -82,5 +82,16 @@ export default defineConfig([
     },
   },
   prettier,
-  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts', 'types/routes.d.ts', 'node_modules/**', 'storybook-static/**', 'stories/**', 'coverage/**', 'dist/**']),
+  globalIgnores([
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+    'types/routes.d.ts',
+    'node_modules/**',
+    'storybook-static/**',
+    'stories/**',
+    'coverage/**',
+    'dist/**'
+  ]),
 ]);
