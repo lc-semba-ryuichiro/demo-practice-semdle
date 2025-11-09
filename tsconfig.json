@@ -19,7 +19,11 @@
     "esModuleInterop": true,
     "exactOptionalPropertyTypes": true,
     "module": "esnext",
+    "moduleDetection": "force",
     "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true,
     "noUncheckedSideEffectImports": true,
     "noImplicitThis": true,
@@ -40,23 +44,59 @@
     ],
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@config/*": [
+        "./src/config/*"
+      ],
+      "@db/*": [
+        "./src/db/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
+      ],
+      "@lib/shared/*": [
+        "./src/lib/shared/*"
+      ],
+      "@lib/client/*": [
+        "./src/lib/client/*"
+      ],
+      "@lib/server/*": [
+        "./src/lib/server/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@ui/*": [
+        "./src/ui/*"
       ]
     },
-    "allowJs": true
+    "rootDirs": [
+      "./",
+      "./types"
+    ],
+    "allowJs": false
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.mts",
+    "**/*.d.ts",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "stories",
-    ".storybook"
+    ".storybook",
+    ".next",
+    "types/.next"
   ]
 }
