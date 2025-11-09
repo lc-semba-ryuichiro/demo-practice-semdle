@@ -23,26 +23,43 @@ const clientSchema = z.object({
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
 });
 
-const server = serverSchema.parse({
-  SUPABASE_URL: process.env['SUPABASE_URL'] ?? process.env['NEXT_PUBLIC_SUPABASE_URL'],
-  SUPABASE_ANON_KEY:
-    process.env['SUPABASE_ANON_KEY'] ?? process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'],
-  SUPABASE_SERVICE_ROLE_KEY: process.env['SUPABASE_SERVICE_ROLE_KEY'],
-  NEXT_RUNTIME_REGION: process.env['NEXT_RUNTIME'] ?? process.env['NEXT_RUNTIME_REGION'],
-  CACHE_MAX_ENTRIES: process.env['CACHE_MAX_ENTRIES'],
-  CACHE_TTL_MS: process.env['CACHE_TTL_MS'],
-  CACHE_MEMORY_THRESHOLD_MB: process.env['CACHE_MEMORY_THRESHOLD_MB'],
-  CACHE_MEMORY_CHECK_INTERVAL_MS: process.env['CACHE_MEMORY_CHECK_INTERVAL_MS'],
-  CACHE_MEMORY_CLEAR_STRATEGY: process.env['CACHE_MEMORY_CLEAR_STRATEGY'],
-  CACHE_ENABLE_MONITORING: process.env['CACHE_ENABLE_MONITORING'],
-});
+type ServerEnv = z.infer<typeof serverSchema>;
+type ClientEnv = z.infer<typeof clientSchema>;
 
-const client = clientSchema.parse({
-  NEXT_PUBLIC_SITE_URL: process.env['NEXT_PUBLIC_SITE_URL'],
-  NEXT_PUBLIC_SUPABASE_URL: process.env['NEXT_PUBLIC_SUPABASE_URL'] ?? server.SUPABASE_URL,
-  NEXT_PUBLIC_SUPABASE_ANON_KEY:
-    process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] ?? server.SUPABASE_ANON_KEY,
-});
+const server: ServerEnv = (() => {
+  try {
+    return serverSchema.parse({
+      SUPABASE_URL: process.env['SUPABASE_URL'] ?? process.env['NEXT_PUBLIC_SUPABASE_URL'],
+      SUPABASE_ANON_KEY:
+        process.env['SUPABASE_ANON_KEY'] ?? process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'],
+      SUPABASE_SERVICE_ROLE_KEY: process.env['SUPABASE_SERVICE_ROLE_KEY'],
+      NEXT_RUNTIME_REGION: process.env['NEXT_RUNTIME'] ?? process.env['NEXT_RUNTIME_REGION'],
+      CACHE_MAX_ENTRIES: process.env['CACHE_MAX_ENTRIES'],
+      CACHE_TTL_MS: process.env['CACHE_TTL_MS'],
+      CACHE_MEMORY_THRESHOLD_MB: process.env['CACHE_MEMORY_THRESHOLD_MB'],
+      CACHE_MEMORY_CHECK_INTERVAL_MS: process.env['CACHE_MEMORY_CHECK_INTERVAL_MS'],
+      CACHE_MEMORY_CLEAR_STRATEGY: process.env['CACHE_MEMORY_CLEAR_STRATEGY'],
+      CACHE_ENABLE_MONITORING: process.env['CACHE_ENABLE_MONITORING'],
+    });
+  } catch {
+    console.error('Environment variable validation failed');
+    throw new Error('Invalid server configuration. Check your .env file.');
+  }
+})();
+
+const client: ClientEnv = (() => {
+  try {
+    return clientSchema.parse({
+      NEXT_PUBLIC_SITE_URL: process.env['NEXT_PUBLIC_SITE_URL'],
+      NEXT_PUBLIC_SUPABASE_URL: process.env['NEXT_PUBLIC_SUPABASE_URL'] ?? server.SUPABASE_URL,
+      NEXT_PUBLIC_SUPABASE_ANON_KEY:
+        process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] ?? server.SUPABASE_ANON_KEY,
+    });
+  } catch {
+    console.error('Public environment variable validation failed');
+    throw new Error('Invalid client configuration. Check your NEXT_PUBLIC_* variables.');
+  }
+})();
 
 export const env = {
   server,
