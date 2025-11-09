@@ -200,6 +200,33 @@ jobs:
           path: coverage
           retention-days: 7
 
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    needs:
+      - vitest
+    if: needs.vitest.result == 'success'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup workspace
+        uses: ./.github/actions/setup-pnpm
+        with:
+          cache-key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Download coverage artifact
+        uses: actions/download-artifact@c835612b7882a440922ddf0eac84398310e09af4 # v4.1.8
+        with:
+          name: vitest-coverage
+          path: .
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@fd88b7d7ccbaefd23d8f36f73b59db7a3d246602 # v6.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+
   storybook:
     name: Build Storybook
     runs-on: ubuntu-latest
@@ -296,6 +323,7 @@ jobs:
       - stylelint
       - text-docs
       - vitest
+      - sonarcloud
       - storybook
       - secretlint
       - gh-security
@@ -309,6 +337,7 @@ jobs:
           STYLELINT_RESULT: ${{ needs.stylelint.result }}
           TEXT_DOCS_RESULT: ${{ needs['text-docs'].result }}
           VITEST_RESULT: ${{ needs.vitest.result }}
+          SONARCLOUD_RESULT: ${{ needs.sonarcloud.result }}
           STORYBOOK_RESULT: ${{ needs.storybook.result }}
           SECRETLINT_RESULT: ${{ needs.secretlint.result }}
           GH_SECURITY_RESULT: ${{ needs['gh-security'].result }}
@@ -321,6 +350,7 @@ jobs:
             echo "- stylelint: ${STYLELINT_RESULT}"
             echo "- text-docs: ${TEXT_DOCS_RESULT}"
             echo "- vitest: ${VITEST_RESULT}"
+            echo "- sonarcloud: ${SONARCLOUD_RESULT}"
             echo "- storybook: ${STORYBOOK_RESULT}"
             echo "- secretlint: ${SECRETLINT_RESULT}"
             echo "- gh-security: ${GH_SECURITY_RESULT}"
