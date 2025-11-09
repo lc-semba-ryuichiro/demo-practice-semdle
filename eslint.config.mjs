@@ -92,6 +92,6 @@ export default defineConfig([
     'storybook-static/**',
     'stories/**',
     'coverage/**',
-    'dist/**'
+    'dist/**',
   ]),
 ]);

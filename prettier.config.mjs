@@ -5,12 +5,12 @@ const config = {
   printWidth: 100,
   singleQuote: true,
   jsxSingleQuote: false,
-  trailingComma: "all",
+  trailingComma: 'all',
   bracketSpacing: true,
-  arrowParens: "always",
+  arrowParens: 'always',
   checkIgnorePragma: true,
-  plugins: ["prettier-plugin-tailwindcss"],
-  tailwindStylesheet: "./app/globals.css",
+  plugins: ['prettier-plugin-tailwindcss'],
+  tailwindStylesheet: './app/globals.css',
 };
 
 export default config;

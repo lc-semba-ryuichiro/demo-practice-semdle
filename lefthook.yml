@@ -3,20 +3,20 @@ pre-commit:
   jobs:
     - name: prettier check
       run: pnpm format
-      glob: "*.{js,ts,jsx,tsx,css,md}"
+      glob: '*.{js,ts,jsx,tsx,css,md}'
     - name: typecheck
       run: pnpm tsc --noEmit
-      glob: "*.{ts,tsx}"
+      glob: '*.{ts,tsx}'
     - name: eslint
       run: pnpm lint
-      glob: "*.{js,ts,jsx,tsx,css,md}"
+      glob: '*.{js,ts,jsx,tsx,css,md}'
 
 pre-push:
   parallel: true
   jobs:
     - name: typecheck
       run: pnpm tsc --noEmit
-      glob: "*.{ts,tsx}"
+      glob: '*.{ts,tsx}'
     - name: build
       run: pnpm build
     - name: audit
@@ -24,5 +24,5 @@ pre-push:
 
 commit-msg:
   commands:
-    "lint commit message":
+    'lint commit message':
       run: pnpm commitlint --edit {1}
