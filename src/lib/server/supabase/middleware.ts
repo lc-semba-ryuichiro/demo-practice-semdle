@@ -1,4 +1,3 @@
-import { env } from '@/config/env';
 import type { NextRequest, NextResponse } from 'next/server';
 
 export function updateSession(request: NextRequest, response: NextResponse) {
@@ -7,7 +6,5 @@ export function updateSession(request: NextRequest, response: NextResponse) {
     return response;
   }
 
-  response.headers.set('x-session-refreshed', new Date().toISOString());
-  response.headers.set('x-supabase-url', env.server.SUPABASE_URL);
   return response;
 }
