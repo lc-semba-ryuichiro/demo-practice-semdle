@@ -263,7 +263,7 @@ jobs:
       - name: zizmor
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: pnpm exec zizmor --format=github
+        run: pnpm exec zizmor --format=github .github/workflows
 
   nightly:
     name: Nightly heavy checks
