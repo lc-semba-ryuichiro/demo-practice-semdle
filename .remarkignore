@@ -5,6 +5,7 @@
 
 # testing
 /coverage
+test-results
 
 # next.js
 /.next/
@@ -40,3 +41,6 @@ GEMINI.md
 
 *storybook.log
 storybook-static
+
+# Serena
+.serena/memories

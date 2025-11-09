@@ -1,4 +1,5 @@
 [tools]
-node = "latest"
-pnpm = "latest"
-zizmor = "latest"
+actionlint = "1.7.8"
+node = "25.1.0"
+pnpm = "10.20.0"
+zizmor = "1.16.3"

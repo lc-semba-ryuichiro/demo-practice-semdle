@@ -1,0 +1,16 @@
+import { Meta, Canvas, Story, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The Button component is part of the shared UI kit and supports three variants: `primary`, `outline`, and `ghost`.
+
+<Canvas>
+  <Story of={ButtonStories.Primary} />
+</Canvas>
+
+## Props
+
+<ArgTypes of={ButtonStories.Primary} />
