@@ -2,12 +2,7 @@
   "[markdown]": {
     "editor.defaultFormatter": "unifiedjs.vscode-remark"
   },
-  "cSpell.words": [
-    "clsx",
-    "poupe",
-    "semdle",
-    "unrs"
-  ],
+  "cSpell.words": ["clsx", "poupe", "semdle", "unrs"],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": true
 }
