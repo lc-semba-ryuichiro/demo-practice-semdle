@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs';
 const meta = {
   title: 'Design System/Button',
   component: Button,
-  tags: ['autodocs'],
   argTypes: {
     variant: {
       options: ['primary', 'outline', 'ghost'],
