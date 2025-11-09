@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { envClient } from '@/config/env.client';
 import { cookies } from 'next/headers';
 
 export async function handlePkceCallback(callbackUrl: string) {
@@ -13,7 +13,7 @@ export async function handlePkceCallback(callbackUrl: string) {
     status: 200,
     body: {
       redirected: callbackUrl,
-      siteUrl: env.client.NEXT_PUBLIC_SITE_URL,
+      siteUrl: envClient.NEXT_PUBLIC_SITE_URL,
     },
   };
 }

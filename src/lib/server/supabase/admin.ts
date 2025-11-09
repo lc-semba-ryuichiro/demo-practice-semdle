@@ -1,9 +1,9 @@
-import { env } from '@/config/env';
+import { envServer } from '@/config/env.server';
 import type { Database } from '@/db/types/supabase';
 import { createClient } from '@supabase/supabase-js';
 
 export function createAdminSupabaseClient() {
-  const { SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL } = env.server;
+  const { SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL } = envServer;
 
   if (SUPABASE_SERVICE_ROLE_KEY === undefined) {
     throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');

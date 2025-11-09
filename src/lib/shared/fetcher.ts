@@ -1,4 +1,4 @@
-import { env } from '@/config/env';
+import { envClient } from '@/config/env.client';
 
 export type FetcherOptions<T> = RequestInit & {
   parse: (payload: unknown) => T;
@@ -8,7 +8,7 @@ export async function fetcher<T>(input: RequestInfo | URL, options: FetcherOptio
   const { parse, headers: initHeaders, ...init } = options;
 
   const headers = new Headers(initHeaders);
-  headers.set('x-app-origin', env.client.NEXT_PUBLIC_SITE_URL);
+  headers.set('x-app-origin', envClient.NEXT_PUBLIC_SITE_URL);
 
   const response = await fetch(input, {
     ...init,

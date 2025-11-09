@@ -1,6 +1,6 @@
 import './globals.css';
 import { APP_NAME } from '@/config/constants';
-import { env } from '@/config/env';
+import { envClient } from '@/config/env.client';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(env.client.NEXT_PUBLIC_SITE_URL),
+  metadataBase: new URL(envClient.NEXT_PUBLIC_SITE_URL),
   title: `${APP_NAME} | Feature-sliced Next.js playground`,
   description:
     'Next.js App Router playground that demonstrates FSD layering for marketing/app experiences.',

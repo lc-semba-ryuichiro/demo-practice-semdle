@@ -17,16 +17,9 @@ const serverSchema = z.object({
   CACHE_ENABLE_MONITORING: z.coerce.boolean().default(true),
 });
 
-const clientSchema = z.object({
-  NEXT_PUBLIC_SITE_URL: z.url().default('http://localhost:3000'),
-  NEXT_PUBLIC_SUPABASE_URL: z.url(),
-  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
-});
+export type ServerEnv = z.infer<typeof serverSchema>;
 
-type ServerEnv = z.infer<typeof serverSchema>;
-type ClientEnv = z.infer<typeof clientSchema>;
-
-const server: ServerEnv = (() => {
+function loadServerEnv(): ServerEnv {
   try {
     return serverSchema.parse({
       SUPABASE_URL: process.env['SUPABASE_URL'] ?? process.env['NEXT_PUBLIC_SUPABASE_URL'],
@@ -45,23 +38,6 @@ const server: ServerEnv = (() => {
     console.error('Environment variable validation failed');
     throw new Error('Invalid server configuration. Check your .env file.');
   }
-})();
+}
 
-const client: ClientEnv = (() => {
-  try {
-    return clientSchema.parse({
-      NEXT_PUBLIC_SITE_URL: process.env['NEXT_PUBLIC_SITE_URL'],
-      NEXT_PUBLIC_SUPABASE_URL: process.env['NEXT_PUBLIC_SUPABASE_URL'] ?? server.SUPABASE_URL,
-      NEXT_PUBLIC_SUPABASE_ANON_KEY:
-        process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] ?? server.SUPABASE_ANON_KEY,
-    });
-  } catch {
-    console.error('Public environment variable validation failed');
-    throw new Error('Invalid client configuration. Check your NEXT_PUBLIC_* variables.');
-  }
-})();
-
-export const env = {
-  server,
-  client,
-};
+export const envServer = loadServerEnv();
