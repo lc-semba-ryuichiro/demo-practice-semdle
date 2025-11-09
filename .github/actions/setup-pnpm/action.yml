@@ -1,0 +1,35 @@
+name: Setup pnpm workspace
+description: Install mise toolchain, configure pnpm cache, and install dependencies
+inputs:
+  cache-key:
+    description: Cache key for the pnpm store
+    required: true
+runs:
+  using: composite
+  steps:
+    - name: Install mise toolchain
+      uses: jdx/mise-action@be3be2260bc02bc3fbf94c5e2fed8b7964baf074 # v3.4.0
+      with:
+        install: true
+        cache: true
+    - name: Setup pnpm CLI
+      uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
+      with:
+        run_install: false
+    - id: pnpm-store
+      name: Resolve pnpm store path
+      shell: bash
+      run: |
+        set -eo pipefail
+        STORE_PATH="$(pnpm store path --silent)"
+        echo "path=${STORE_PATH}" >> "$GITHUB_OUTPUT"
+    - name: Cache pnpm store
+      uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      with:
+        path: ${{ steps.pnpm-store.outputs.path }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
