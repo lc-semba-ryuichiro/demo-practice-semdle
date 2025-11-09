@@ -1,4 +1,4 @@
 [tools]
-node = "latest"
-pnpm = "latest"
-zizmor = "latest"
+node = "25.1.0"
+pnpm = "10.20.0"
+zizmor = "1.16.3"
