@@ -149,7 +149,10 @@ export function withUnstableCache<TArgs extends unknown[], TResult>(
       try {
         return await execution;
       } finally {
-        pendingRequestsStore.delete(storageKey);
+        const currentEntry = pendingRequestsStore.get(storageKey);
+        if (isPendingRequestEntryOf<TResult>(currentEntry, entryMarker)) {
+          pendingRequestsStore.delete(storageKey);
+        }
       }
     },
     keyParts,
