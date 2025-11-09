@@ -1,10 +1,12 @@
-import { envClient } from '@/config/env.client';
+import { envServer } from '@/config/env.server';
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
+  const siteOrigin = new URL(envServer.SITE_URL).origin;
+
   return {
-    host: envClient.NEXT_PUBLIC_SITE_URL,
-    sitemap: [`${envClient.NEXT_PUBLIC_SITE_URL}/sitemap.xml`],
+    host: siteOrigin,
+    sitemap: [`${siteOrigin}/sitemap.xml`],
     rules: {
       userAgent: '*',
       allow: '/',

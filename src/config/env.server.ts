@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 const serverSchema = z.object({
+  SITE_URL: z.url().default('http://localhost:3000'),
   SUPABASE_URL: z.url().default('http://localhost:54321'),
   SUPABASE_ANON_KEY: z.string().min(1).default('public-anon-key'),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
@@ -22,6 +23,7 @@ export type ServerEnv = z.infer<typeof serverSchema>;
 function loadServerEnv(): ServerEnv {
   try {
     return serverSchema.parse({
+      SITE_URL: process.env['SITE_URL'] ?? process.env['NEXT_PUBLIC_SITE_URL'],
       SUPABASE_URL: process.env['SUPABASE_URL'] ?? process.env['NEXT_PUBLIC_SUPABASE_URL'],
       SUPABASE_ANON_KEY:
         process.env['SUPABASE_ANON_KEY'] ?? process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'],
