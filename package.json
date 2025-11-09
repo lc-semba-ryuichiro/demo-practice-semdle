@@ -115,6 +115,7 @@
     "astro": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
+    "lru-cache": "catalog:",
     "lucide-react": "catalog:",
     "next": "catalog:",
     "react": "catalog:",
