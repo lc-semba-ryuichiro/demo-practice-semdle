@@ -1,4 +1,6 @@
 import type { cacheClear, cacheGet, cacheSet, getCacheMetrics, withUnstableCache } from '../index';
+import { composeKey } from '../internal/compose-key';
+import { defaultArgsToKey } from '../internal/serializer';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 type UnstableCacheMock = <TArgs extends unknown[], TResult>(
@@ -148,7 +150,7 @@ describe('サーバーキャッシュ', () => {
     // Given: withUnstableCache が使用するストレージキーを偽装して異なる marker の値を保存
     const namespace = 'expensive-guard';
     const args = 5;
-    const storageKey = `${namespace}::${JSON.stringify([args])}`;
+    const storageKey = composeKey([namespace, defaultArgsToKey(args)]);
     const expensive = vi.fn((value: number) => Promise.resolve(value * 2));
     const cachedFn = mut_cacheModule.withUnstableCache([namespace], expensive);
     mut_cacheModule.cacheSet(storageKey, { marker: Symbol('spoofed'), value: 999 });

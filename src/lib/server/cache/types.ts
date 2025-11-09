@@ -27,3 +27,20 @@ export type WithUnstableCacheOptions<TArgs extends unknown[]> = NextCacheOptions
   argsToKey?: (...args: TArgs) => string;
   ttlMs?: number;
 };
+
+export type NullSentinel = Readonly<{ type: 'cache:null' }>;
+export type UndefinedSentinel = Readonly<{ type: 'cache:undefined' }>;
+export type CachePrimitive = string | number | boolean | bigint | symbol;
+export type CacheStoreValue = CachePrimitive | object | NullSentinel | UndefinedSentinel;
+
+export type NamespacedCacheEntry<TResult> = {
+  marker: symbol;
+  value: TResult;
+};
+
+export type PendingRequestEntry<TResult = unknown> = {
+  marker: symbol;
+  promise: Promise<TResult>;
+};
+
+export type PendingRequestStore = Map<string, PendingRequestEntry>;

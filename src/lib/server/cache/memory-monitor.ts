@@ -1,4 +1,9 @@
 import { cacheConfig } from './config';
+import {
+  clearMonitorHandle,
+  getMonitorHandle,
+  setMonitorHandle,
+} from './memory-monitor/handle-store';
 import { metricsStore } from './metrics';
 
 type MemoryMonitorDeps = {
@@ -6,10 +11,23 @@ type MemoryMonitorDeps = {
   formatBytes: (bytes: number) => string;
 };
 
-export function startMemoryMonitor({ enforceBudget, formatBytes }: MemoryMonitorDeps) {
-  if (!cacheConfig.monitoringEnabled || cacheConfig.memoryThresholdBytes <= 0) {
+export function stopMemoryMonitor() {
+  const handle = getMonitorHandle();
+  if (handle === undefined) {
     return;
   }
+
+  clearInterval(handle);
+  clearMonitorHandle();
+}
+
+export function startMemoryMonitor({ enforceBudget, formatBytes }: MemoryMonitorDeps) {
+  if (!cacheConfig.monitoringEnabled || cacheConfig.memoryThresholdBytes <= 0) {
+    stopMemoryMonitor();
+    return;
+  }
+
+  stopMemoryMonitor();
 
   const interval = setInterval(() => {
     const rss = process.memoryUsage().rss;
@@ -31,6 +49,8 @@ export function startMemoryMonitor({ enforceBudget, formatBytes }: MemoryMonitor
         `Evicted ${removed} entr${removed === 1 ? 'y' : 'ies'} via ${cacheConfig.clearStrategy}.`,
     );
   }, cacheConfig.monitorIntervalMs);
+
+  setMonitorHandle(interval);
 
   if (typeof interval.unref === 'function') {
     interval.unref();
