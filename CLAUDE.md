@@ -101,7 +101,7 @@ app → features → ui → lib (client/server/shared) → config/types/db
   - イミュータブルデータ（`draft`, `mut_` プレフィックス、React refs, `.current` を除き変更禁止）
   - フレームワーク実用主義: Next.js 互換性のため `void` 戻り値、式文、条件文は許可
 - **インポート規律:**
-  - `simple-import-sort` による自動ソートインポート
+  - `prettier` による自動ソートインポート
   - 循環依存禁止
   - レイヤー境界を厳格に強制
 - **デフォルトエクスポート** は Next.js 特別ファイル（`page.tsx`, `layout.tsx` など）のみ許可
