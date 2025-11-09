@@ -188,7 +188,8 @@ jobs:
         with:
           cache-key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Vitest with coverage
-        run: pnpm test --coverage --runInBand
+        # Vitest では Jest の --runInBand フラグが使えないため同等のオプションに置き換え
+        run: pnpm test --coverage --no-file-parallelism --maxWorkers=1
         env:
           NODE_OPTIONS: --experimental-vm-modules
       - name: Upload coverage
@@ -240,7 +241,7 @@ jobs:
         with:
           cache-key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Secretlint
-        run: pnpm exec secretlint '**/*' --ignore-path .gitignore --mask-secrets
+        run: pnpm exec secretlint '**/*' --secretlintignore .gitignore
 
   gh-security:
     name: Actions lint & Zizmor
@@ -258,7 +259,7 @@ jobs:
         with:
           cache-key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - name: actionlint
-        run: pnpm dlx actionlint@1.7.1 --color
+        run: actionlint -color
       - name: zizmor
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
