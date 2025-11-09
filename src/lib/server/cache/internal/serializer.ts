@@ -1,3 +1,5 @@
+const localeStringCompare = (a: string, b: string) => a.localeCompare(b);
+
 export function defaultArgsToKey(...args: unknown[]): string {
   return serializeCacheValue(args, '$', new WeakMap<object, string>());
 }
@@ -71,7 +73,7 @@ function serializeCacheValue(value: unknown, path: string, seen: WeakMap<object,
 
     const serialized = Array.from(value)
       .map((item, index) => serializeCacheValue(item, `${path}.set[${index}]`, seen))
-      .sort();
+      .sort(localeStringCompare);
     return `set:{${serialized.join(',')}}`;
   }
 
@@ -91,7 +93,7 @@ function serializeCacheValue(value: unknown, path: string, seen: WeakMap<object,
         );
         return `${serializedKey}=>${serializedValue}`;
       })
-      .sort();
+      .sort(localeStringCompare);
 
     return `map:{${serializedEntries.join(',')}}`;
   }
@@ -127,7 +129,7 @@ function serializeCacheValue(value: unknown, path: string, seen: WeakMap<object,
     }
 
     const propertyEntries = Object.keys(value)
-      .sort()
+      .sort(localeStringCompare)
       .map((key) => {
         const serializedValue = serializeCacheValue(value[key], `${path}.${key}`, seen);
         return `${JSON.stringify(key)}:${serializedValue}`;
