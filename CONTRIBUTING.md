@@ -9,6 +9,7 @@ semdle への貢献に興味を持っていただき、ありがとうござい�
 - [開発環境のセットアップ](#開発環境のセットアップ)
   - [必須ツール](#必須ツール)
   - [セットアップ手順](#セットアップ手順)
+  - [サーバーキャッシュ設定](#サーバーキャッシュ設定)
 - [開発ワークフロー](#開発ワークフロー)
   - [ブランチ戦略](#ブランチ戦略)
   - [開発前のチェック](#開発前のチェック)
@@ -94,6 +95,34 @@ pnpm dev
 #### 6. 動作確認
 
 ブラウザで <http://localhost:3000> を開いて、正常に動作することを確認してください。
+
+### サーバーキャッシュ設定
+
+`src/lib/server/cache/` 配下の LRU キャッシュは、以下の環境変数で挙動を制御できます。値を `.env.local` に設定すると、本番／開発の両方で反映されます。
+
+| 変数名                           | 既定値   | 説明                                                                             |
+| -------------------------------- | -------- | -------------------------------------------------------------------------------- |
+| `CACHE_MAX_ENTRIES`              | `500`    | キャッシュできるキー数の上限。超過すると LRU で自動エビクトします。              |
+| `CACHE_TTL_MS`                   | `300000` | （ミリ秒）全エントリの標準 TTL。`cacheSet` の `ttl` オプションで上書き可能です。 |
+| `CACHE_MEMORY_THRESHOLD_MB`      | `768`    | RSS がこの値（MB）を超えたらメモリ監視が介入します。`0` で無効化。               |
+| `CACHE_MEMORY_CHECK_INTERVAL_MS` | `30000`  | メモリ監視ポーリング間隔（ms）。                                                 |
+| `CACHE_MEMORY_CLEAR_STRATEGY`    | `trim`   | 阈値超過時のアクション。`trim` は LRU の25%を削り、`clear` は全削除。            |
+| `CACHE_ENABLE_MONITORING`        | `true`   | `false` にするとメモリ監視タイマーを停止します。                                 |
+
+Next.js 16 の `unstable_cache` とも連携できるように `withUnstableCache` ヘルパーを追加しています。
+
+```ts
+import { withUnstableCache } from '@/lib/server/cache';
+
+const getProfile = withUnstableCache(
+  ['profile', 'by-id'],
+  async (id: string) => db.profile.findUnique({ where: { id } }),
+  { revalidate: 120 },
+);
+
+// 2回目以降は Next.js のキャッシュ＋ローカルLRUのヒットで即返却されます
+await getProfile('user_123');
+```
 
 ## 開発ワークフロー
 

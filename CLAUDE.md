@@ -140,12 +140,12 @@ app → features → ui → lib (client/server/shared) → config/types/db
 
 ### Middleware
 - 認証セッション更新は `middleware.ts` で Supabase 経由で行われる
-- `@/lib/server/supabase-middleware` から `updateSession` を呼び出す
+- `@/lib/server/supabase/middleware` から `updateSession` を呼び出す
 
 ### Supabase の使用
 - **Client-side:** `@/lib/client/supabase`（ブラウザ専用）
 - **Server-side:** `@/lib/server/supabase`（Server Components、Route Handlers）
-- **Admin:** `@/lib/server/admin-supabase`（service role key）
+- **Admin:** `@/lib/server/supabase/admin`（service role key）
 
 ### UI コンポーネント構造
 `src/ui/` 内の各コンポーネントは以下に従う:

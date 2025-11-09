@@ -111,7 +111,7 @@ pnpm depgraph   # 依存関係グラフの可視化
 
 ## ディレクトリ構造（Feature-Sliced Design）
 
-```
+```text
 src/
 ├─ app/                 # Next.js App Router（ページ・レイアウト・API）
 │  ├─ (marketing)/      # マーケティングページ

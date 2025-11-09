@@ -52,12 +52,10 @@
 │  │
 │  ├─ lib/
 │  │  ├─ server/                         # サーバ専用（Node/Edge 両方を意識）
-│  │  │  ├─ supabase.ts                  # SSR 用 Supabase クライアント（Cookie ベース）
-│  │  │  ├─ supabase-middleware.ts       # セッション更新ロジック
-│  │  │  ├─ admin-supabase.ts            # service_role 用（管理/テスト限定）
-│  │  │  ├─ db.ts                        # DB 接続/クエリ共通（RLS 前提の薄いラッパ）
-│  │  │  ├─ auth.ts                      # 認可/ユーザー取得ユーティリティ
-│  │  │  ├─ cache.ts                     # キャッシュ/再検証方針の窓口
+│  │  │  ├─ cache/                       # LRU キャッシュ & unstable_cache 連携
+│  │  │  ├─ supabase/                    # Supabase クライアント（SSR/Admin/Middleware）
+│  │  │  ├─ auth/                        # 認可/ユーザー取得ユーティリティ
+│  │  │  ├─ db/                          # DB 接続/クエリ共通（RLS 前提の薄いラッパ）
 │  │  │  └─ actions/                     # Server Actions（“use server”）
 │  │  │     └─ user.ts
 │  │  ├─ client/                         # ブラウザ専用
