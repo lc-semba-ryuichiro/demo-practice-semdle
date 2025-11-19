@@ -33,7 +33,7 @@ catalog:
   '@vercel/analytics': 1.5.0
   '@vercel/speed-insights': 1.2.0
   '@vitest/coverage-v8': 4.0.9
-  astro: 5.15.8
+  astro: 5.15.9
   chromatic: 13.3.3
   class-variance-authority: 0.7.1
   clsx: 2.1.1
